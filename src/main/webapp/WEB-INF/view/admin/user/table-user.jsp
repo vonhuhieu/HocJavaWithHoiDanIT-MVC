@@ -25,6 +25,7 @@
                                 <a style="display: flex; align-items: center; font-size: 20px;" class="btn btn-primary"
                                     href="/admin/user/create">Create a user</a>
                             </div>
+                            <hr />
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -35,16 +36,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>vonhuhieu2003@gmail.com</td>
-                                        <td>Võ Như Hiếu</td>
-                                        <td>
-                                            <button class="btn btn-success">View</button>
-                                            <button class="btn btn-warning">Update</button>
-                                            <button class="btn btn-danger">Delete</button>
-                                        </td>
-                                    </tr>
+                                    <c:forEach var="user" items="${users1}">
+                                        <tr>
+                                            <th scope="row">${user.id}</th>
+                                            <td>${user.email}</td>
+                                            <td>${user.fullName}</td>
+                                            <td>
+                                                <button class="btn btn-success">View</button>
+                                                <button class="btn btn-warning">Update</button>
+                                                <button class="btn btn-danger">Delete</button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
