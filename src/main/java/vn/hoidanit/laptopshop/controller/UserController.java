@@ -75,7 +75,7 @@ public class UserController {
             currentUser.setAddress(hoidanit.getAddress());
             currentUser.setFullName(hoidanit.getFullName());
             currentUser.setPhone(hoidanit.getPhone());
-            this.userService.handleSaveUser(hoidanit);
+            this.userService.handleSaveUser(currentUser);
         }
         return "redirect:/admin/user";
     }
