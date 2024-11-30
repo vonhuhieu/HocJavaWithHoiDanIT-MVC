@@ -14,6 +14,8 @@ import vn.hoidanit.laptopshop.repository.UserRepository;
 import vn.hoidanit.laptopshop.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -76,6 +78,22 @@ public class UserController {
             currentUser.setFullName(hoidanit.getFullName());
             currentUser.setPhone(hoidanit.getPhone());
             this.userService.handleSaveUser(currentUser);
+        }
+        return "redirect:/admin/user";
+    }
+
+    @GetMapping("/admin/user/delete/{id}")
+    public String getDeleteUserPage(Model model, @PathVariable long id) {
+        User currentUser = this.userService.getUserByID(id);
+        model.addAttribute("currentUser", currentUser);
+        return "/admin/user/delete";
+    }
+
+    @PostMapping("admin/user/delete")
+    public String postDeleteUser(Model model, @ModelAttribute("currentUser") User hoidanit) {
+        User currentUser = this.userService.getUserByID(hoidanit.getId());
+        if (currentUser != null) {
+            this.userService.deleteUserByID(currentUser.getId());
         }
         return "redirect:/admin/user";
     }

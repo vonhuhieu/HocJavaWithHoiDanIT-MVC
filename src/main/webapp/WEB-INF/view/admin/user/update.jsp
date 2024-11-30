@@ -25,27 +25,23 @@
                             <form:form method="post" action="/admin/user/update" modelAttribute="newUser">
                                 <div class="mb-3" style="display: none;">
                                     <label class="form-label">ID</label>
-                                    <form:input type="text" path="id" class="form-control" value="${newUser.id}" />
+                                    <form:input type="text" path="id" class="form-control" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email address</label>
-                                    <form:input type="email" path="email" class="form-control" value="${newUser.email}"
-                                        disabled="true" />
+                                    <form:input type="email" path="email" class="form-control" disabled="true" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Fullname</label>
-                                    <form:input type="text" path="fullName" class="form-control"
-                                        value="${newUser.fullName}" />
+                                    <form:input type="text" path="fullName" class="form-control" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Address</label>
-                                    <form:input type="text" path="address" class="form-control"
-                                        value="${newUser.address}" />
+                                    <form:input type="text" path="address" class="form-control" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Phone</label>
-                                    <form:input type="text" path="phone" class="form-control"
-                                        value="${newUser.phone}" />
+                                    <form:input type="text" path="phone" class="form-control" />
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </form:form>
