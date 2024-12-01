@@ -1,5 +1,6 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,17 +18,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.ServletContext;
+
 @Controller
 public class UserController {
     // DI: dependency injection
     private final UserService userService;
     private final UploadService uploadService;
     private final PasswordEncoder passwordEncoder;
+    private final ServletContext servletContext;
 
-    public UserController(UserService userService, UploadService uploadService, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService, UploadService uploadService, PasswordEncoder passwordEncoder,
+            ServletContext servletContext) {
         this.userService = userService;
         this.uploadService = uploadService;
         this.passwordEncoder = passwordEncoder;
+        this.servletContext = servletContext;
     }
 
     @RequestMapping("/")
@@ -92,6 +98,18 @@ public class UserController {
             currentUser.setFullName(hoidanit.getFullName());
             currentUser.setPhone(hoidanit.getPhone());
             if (avatar != null && !avatar.trim().isEmpty()) {
+                String oldAvatar = currentUser.getAvatar();
+                if (oldAvatar != null && !oldAvatar.trim().isEmpty()) {
+                    String avatarPath = this.servletContext.getRealPath("/resources/images/avatar/") + oldAvatar;
+                    // trỏ đến avar cũ
+                    File oldFile = new File(avatarPath);
+                    if (oldFile.exists()) {
+                        boolean deleted = oldFile.delete();
+                        if (!deleted) {
+                            System.err.println("Không thể xóa file avatar cũ: " + avatarPath);
+                        }
+                    }
+                }
                 // avatar không null, không rỗng, và không chứa toàn khoảng trắng
                 currentUser.setAvatar(avatar);
             }
@@ -109,9 +127,22 @@ public class UserController {
     }
 
     @PostMapping("admin/user/delete")
-    public String postDeleteUser(Model model, @ModelAttribute("currentUser") User hoidanit) {
+    public String postDeleteUser(Model model,
+            @ModelAttribute("currentUser") User hoidanit) {
         User currentUser = this.userService.getUserByID(hoidanit.getId());
         if (currentUser != null) {
+            String oldAvatar = currentUser.getAvatar();
+            if (oldAvatar != null && !oldAvatar.trim().isEmpty()) {
+                String avatarPath = this.servletContext.getRealPath("/resources/images/avatar/") + oldAvatar;
+                // trỏ đến avar cũ
+                File oldFile = new File(avatarPath);
+                if (oldFile.exists()) {
+                    boolean deleted = oldFile.delete();
+                    if (!deleted) {
+                        System.err.println("Không thể xóa file avatar cũ: " + avatarPath);
+                    }
+                }
+            }
             this.userService.deleteUserByID(currentUser.getId());
         }
         return "redirect:/admin/user";
