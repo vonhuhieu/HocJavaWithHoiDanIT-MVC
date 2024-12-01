@@ -16,6 +16,16 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#avatarFile");
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreview").attr("src", imgURL);
+                            $("#avatarPreview").css({ "display": "block" });
+                        });
+                    });
+                </script>
             </head>
 
             <body class="sb-nav-fixed">
@@ -38,7 +48,7 @@
                                             <h3 style="text-align: left;">Update User</h3>
                                             <hr />
                                             <form:form class="row g-3" method="post" action="/admin/user/update"
-                                                modelAttribute="newUser">
+                                                modelAttribute="newUser" enctype="multipart/form-data">
                                                 <div class="col-md-12" style="display: none;">
                                                     <label class="form-label">ID</label>
                                                     <form:input type="text" path="id" class="form-control" />
@@ -62,19 +72,19 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label">Role</label>
-                                                    <select class="form-select">
-                                                        <option value="ADMIN">Admin</option>
-                                                        <option value="USER">User</option>
-                                                    </select>
+                                                    <form:select class="form-select" path="role.name">
+                                                        <form:option value="ADMIN">Admin</form:option>
+                                                        <form:option value="USER">User</form:option>
+                                                    </form:select>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="avatarFile" class="form-label">Avatar</label>
                                                     <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jpeg" />
+                                                        accept=".png, .jpg, .jpeg" name="hoidanitFile" />
                                                 </div>
                                                 <div class="col-12">
-                                                    <img style="max-height: 250px; display: none;" alt="avatar preview"
-                                                        id="avatarPreview" />
+                                                    <img style="max-height: 250px; display: block;" alt="avatar preview"
+                                                        src="/images/avatar/${newUser.avatar}" id="avatarPreview" />
                                                 </div>
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-primary">Update</button>

@@ -24,6 +24,10 @@ public class UploadService {
         // đường link tới nơi lưu file
         String rootPath = this.servletContext.getRealPath("/resources/images");
         String finalName = "";
+        // Kiểm tra nếu file rỗng
+        if (file == null || file.isEmpty()) {
+            return finalName; // Trả về chuỗi rỗng nếu không có file
+        }
         try {
             // lấy hình ảnh dưới dạng binary
             byte[] bytes = file.getBytes();
