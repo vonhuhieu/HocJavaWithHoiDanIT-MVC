@@ -7,7 +7,9 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>User Detail ${id}</title>
+                <title>Table Users</title>
+                <link href="/css/styles.css" rel="stylesheet" />
+                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
                 <!-- Latest compiled and minified CSS -->
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
                 <!-- Latest compiled JavaScript -->
@@ -16,32 +18,61 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
             </head>
 
-            <body>
-                <div class="container mt-5">
-                    <div class="row">
-                        <div class="col-12 mx-auto">
-                            <div class="d-flex justify-content-between">
-                                <h1>User Detail with id = ${id}</h1>
+            <body class="sb-nav-fixed">
+                <jsp:include page="../layout/header.jsp"></jsp:include>
+                <div id="layoutSidenav">
+                    <jsp:include page="../layout/sidebar.jsp"></jsp:include>
+                    <div id="layoutSidenav_content">
+                        <main>
+                            <div class="container-fluid px-4">
+                                <h1 class="mt-4">Manage User</h1>
+                                <ol class="breadcrumb mb-4">
+                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Users</li>
+                                </ol>
                             </div>
-                            <hr />
-                            <div class="card" style="width: 60%">
-                                <div class="card-header">
-                                    User information
+                            <div class="container-fluid px-4 mt-5">
+                                <div class="d-flex justify-content-between">
+                                    <h3>Table User</h3>
+                                    <a style="display: flex; align-items: center; font-size: 20px;"
+                                        class="btn btn-primary" href="/admin/user/create">Create a user</a>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">ID: ${user.id}</li>
-                                    <li class="list-group-item">Email: ${user.email}</li>
-                                    <li class="list-group-item">FullName: ${user.fullName}</li>
-                                    <li class="list-group-item">Address: ${user.address}</li>
-                                    <li class="list-group-item">Phone: ${user.phone}</li>
-                                </ul>
+                                <hr />
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Full Name</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="user" items="${users1}">
+                                            <tr>
+                                                <th scope="row">${user.id}</th>
+                                                <td>${user.email}</td>
+                                                <td>${user.fullName}</td>
+                                                <td>
+                                                    <a href="/admin/user/${user.id}" class="btn btn-success">View</a>
+                                                    <a href="/admin/user/update/${user.id}"
+                                                        class="btn btn-warning">Update</a>
+                                                    <a href="/admin/user/delete/${user.id}"
+                                                        class="btn btn-danger">Delete</a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div>
-                                <a href="/admin/user" class="btn btn-success mt-3">Back</a>
-                            </div>
-                        </div>
+                        </main>
+                        <jsp:include page="../layout/footer.jsp"></jsp:include>
                     </div>
+
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+                    crossorigin="anonymous"></script>
+                <script src="/js/scripts.js"></script>
             </body>
 
             </html>

@@ -7,7 +7,7 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Delete User ${currentUser.id}</title>
+                <title>User Detail ${id}</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
                 <!-- Latest compiled and minified CSS -->
@@ -25,24 +25,32 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage User</h1>
+                                <h1 class="mt-4">Manage Users</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                     <li class="breadcrumb-item active">Users</li>
                                 </ol>
                             </div>
                             <div class="container-fluid px-4 mt-5">
-                                <div class="alert alert-danger" role="alert">
-                                    Are you sure to delete this user whose id = ${currentUser.id} ?
+                                <div class="d-flex justify-content-between">
+                                    <h1>User Detail with id = ${id}</h1>
                                 </div>
                                 <hr />
-                                <form:form method="post" action="/admin/user/delete" modelAttribute="currentUser">
-                                    <div class="mb-3" style="display: none;">
-                                        <label class="form-label">ID</label>
-                                        <form:input type="text" path="id" class="form-control" />
+                                <div class="card" style="width: 60%">
+                                    <div class="card-header">
+                                        User information
                                     </div>
-                                    <button type="submit" class="btn btn-success">Confirm</button>
-                                </form:form>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">ID: ${user.id}</li>
+                                        <li class="list-group-item">Email: ${user.email}</li>
+                                        <li class="list-group-item">FullName: ${user.fullName}</li>
+                                        <li class="list-group-item">Address: ${user.address}</li>
+                                        <li class="list-group-item">Phone: ${user.phone}</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <a href="/admin/user" class="btn btn-success mt-3">Back</a>
+                                </div>
                             </div>
                         </main>
                         <jsp:include page="../layout/footer.jsp"></jsp:include>
