@@ -27,9 +27,28 @@
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                     <li class="breadcrumb-item active">Product</li>
                                 </ol>
-                                <div>
-                                    table product
+                            </div>
+                            <div class="container-fluid px-4 mt-5">
+                                <div class="d-flex justify-content-between">
+                                    <h3>Table Products</h3>
+                                    <a style="display: flex; align-items: center; font-size: 20px;"
+                                        class="btn btn-primary" href="/admin/product/create">Create a product</a>
                                 </div>
+                                <hr />
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Factory</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </main>
                         <jsp:include page="../layout/footer.jsp"></jsp:include>

@@ -3,10 +3,11 @@ package vn.hoidanit.laptopshop.controller.admin;
 import java.io.File;
 import java.util.List;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.ServletContext;
+import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
@@ -69,8 +71,20 @@ public class UserController {
 
     @PostMapping(value = "/admin/user/create")
     public String createUserPage(Model model,
-            @ModelAttribute("newUser") User hoidanit,
+            @ModelAttribute("newUser") @Valid User hoidanit,
+            BindingResult newUserBindingResult,
             @RequestParam("hoidanitFile") MultipartFile file) {
+        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        }
+        // validate
+        if (newUserBindingResult.hasErrors()) {
+            // không dùng redirect vì khi submit có lỗi nó sẽ tự reset và mất hết input vừa
+            // nhập
+            return "/admin/user/create";
+        }
+        //
         String hashPassword = this.passwordEncoder.encode(hoidanit.getPassword());
         String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
         hoidanit.setAvatar(avatar);
@@ -83,17 +97,31 @@ public class UserController {
     @RequestMapping("/admin/user/update/{id}") // GET
     public String getUpdateUserPage(Model model, @PathVariable long id) {
         User currentUser = this.userService.getUserByID(id);
+        model.addAttribute("id", id);
         model.addAttribute("newUser", currentUser);
         return "/admin/user/update";
     }
 
-    @PostMapping("admin/user/update")
+    @PostMapping("admin/user/update/{id}")
     public String postUpdateUser(Model model,
-            @ModelAttribute("newUser") User hoidanit,
+            @ModelAttribute("newUser") @Valid User hoidanit,
+            BindingResult newUserBindingResult,
+            @PathVariable long id,
             @RequestParam("hoidanitFile") MultipartFile file) {
+        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        }
+        // validate
+        if (newUserBindingResult.hasErrors()) {
+            // không dùng redirect vì khi submit có lỗi nó sẽ tự reset và mất hết input vừa
+            // nhập
+            return "/admin/user/update";
+        }
         String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
         User currentUser = this.userService.getUserByID(hoidanit.getId());
         if (currentUser != null) {
+
             currentUser.setAddress(hoidanit.getAddress());
             currentUser.setFullName(hoidanit.getFullName());
             currentUser.setPhone(hoidanit.getPhone());
