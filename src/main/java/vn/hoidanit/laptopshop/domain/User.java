@@ -25,7 +25,7 @@ public class User {
 
     @NotNull
     @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-    @NotEmpty(message = "Email cannot be empty")
+    @NotEmpty(message = "Email không được để trống")
     private String email;
 
     @NotNull

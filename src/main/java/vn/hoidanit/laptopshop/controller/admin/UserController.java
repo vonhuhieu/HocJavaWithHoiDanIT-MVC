@@ -84,7 +84,6 @@ public class UserController {
             // nhập
             return "/admin/user/create";
         }
-        //
         String hashPassword = this.passwordEncoder.encode(hoidanit.getPassword());
         String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
         hoidanit.setAvatar(avatar);

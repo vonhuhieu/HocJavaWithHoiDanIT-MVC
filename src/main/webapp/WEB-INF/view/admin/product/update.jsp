@@ -7,7 +7,7 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Create a product</title>
+                <title>Update product ${id}</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
                 <!-- Latest compiled and minified CSS -->
@@ -19,6 +19,12 @@
                 <script>
                     $(document).ready(() => {
                         const avatarFile = $("#avatarFile");
+                        const orgImage = "${currentProduct.image}";
+                        if (orgImage) {
+                            const urlImage = "/images/product/" + orgImage;
+                            $("#avatarPreview").attr("src", urlImage);
+                            $("#avatarPreview").css({ "display": "block" });
+                        }
                         avatarFile.change(function (e) {
                             const imgURL = URL.createObjectURL(e.target.files[0]);
                             $("#avatarPreview").attr("src", imgURL);
@@ -45,10 +51,11 @@
                                 <div class="container mt-5">
                                     <div class="row">
                                         <div class="col-md-8 col-12 mx-auto">
-                                            <h3 style="text-align: left;">Create a product</h3>
+                                            <h3 style="text-align: left;">Update product with ID = ${id}</h3>
                                             <hr />
-                                            <form:form class="row g-3" method="post" action="/admin/product/create"
-                                                enctype="multipart/form-data" modelAttribute="newProduct">
+                                            <form:form class="row g-3" method="post"
+                                                action="/admin/product/update/${id}" enctype="multipart/form-data"
+                                                modelAttribute="currentProduct">
                                                 <div class="col-md-6">
                                                     <c:set var="errorName">
                                                         <form:errors path="name" cssClass="invalid-feedback" />
@@ -133,7 +140,7 @@
                                                         alt="avatar preview" id="avatarPreview" />
                                                 </div>
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary">Create</button>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
                                                 </div>
                                             </form:form>
                                         </div>

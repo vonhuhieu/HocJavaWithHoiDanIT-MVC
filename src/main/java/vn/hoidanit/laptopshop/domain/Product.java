@@ -2,12 +2,15 @@ package vn.hoidanit.laptopshop.domain;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "products")
@@ -16,14 +19,37 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
+    @NotEmpty(message = "Tên sản phẩm không được để trống")
     private String name;
+
+    @NotNull
+    @Positive(message = "Giá trị sản phẩm phải lớn hơn 0")
     private double price;
+
     private String image;
+
+    @NotNull
+    @NotEmpty(message = "detailDesc không được để trống")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
+
+    @NotNull
+    @NotEmpty(message = "Thông tin tóm tắt sản phẩm không được để trống")
     private String shortDesc;
+
+    @NotNull
+    @Positive(message = "Số lượng sản phẩm phải lớn hơn 0")
     private long quantity;
+
     private long sold;
+
+    @NotNull
+    @NotEmpty(message = "Hãng sản xuất không được để trống")
     private String factory;
+
+    @NotNull
+    @NotEmpty(message = "Đối tượng sử dụng không được để trống")
     private String target;
 
     public long getId() {

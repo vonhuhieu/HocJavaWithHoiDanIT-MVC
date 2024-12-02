@@ -10,7 +10,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="" />
                 <meta name="author" content="" />
-                <title>Dashboard - SB Admin</title>
+                <title>Manage Products</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
@@ -46,7 +46,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        <c:forEach var="product" items="${products}">
+                                            <tr>
+                                                <th scope="row">${product.id}</th>
+                                                <td>${product.name}</td>
+                                                <td>${product.price}</td>
+                                                <td>${product.factory}</td>
+                                                <td>
+                                                    <a href="/admin/product/detail/${product.id}"
+                                                        class="btn btn-success">View</a>
+                                                    <a href="/admin/product/update/${product.id}"
+                                                        class="btn btn-warning">Update</a>
+                                                    <a href="/admin/product/delete/${product.id}"
+                                                        class="btn btn-danger">Delete</a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
