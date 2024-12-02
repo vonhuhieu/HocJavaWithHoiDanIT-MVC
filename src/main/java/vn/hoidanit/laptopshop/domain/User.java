@@ -30,13 +30,13 @@ public class User {
     private String email;
 
     @NotNull
-    @Size(min = 2, message = "Password phải có tối thiểu 2 ký tự")
+    // @Size(min = 2, message = "Password phải có tối thiểu 2 ký tự")
     @StrongPassword(message = "Pass phải có 8 ký tự bla bla")
     private String password;
 
-    @NotNull
-    @Size(min = 3, message = "Full Name phải có tối thiểu 2 ký tự")
-    @NotEmpty(message = "Full Name không được để trống")
+    // @NotNull
+    // @Size(min = 3, message = "Full Name phải có tối thiểu 2 ký tự")
+    // @NotEmpty(message = "Full Name không được để trống")
     private String fullName;
 
     private String address;
