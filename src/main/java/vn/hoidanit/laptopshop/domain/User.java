@@ -25,13 +25,14 @@ public class User {
     private long id;
 
     @NotNull
-    @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-    @NotEmpty(message = "Email không được để trống")
+    // @Email(message = "Email không hợp lệ", regexp =
+    // "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    // @NotEmpty(message = "Email không được để trống")
     private String email;
 
     @NotNull
     // @Size(min = 2, message = "Password phải có tối thiểu 2 ký tự")
-    @StrongPassword(message = "Pass phải có 8 ký tự bla bla")
+    // @StrongPassword(message = "Pass phải có 8 ký tự bla bla")
     private String password;
 
     // @NotNull

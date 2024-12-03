@@ -21,6 +21,6 @@ public class ItemController {
             @PathVariable long id) {
         Product product = this.productService.getProductByID(id);
         model.addAttribute("product", product);
-        return "/client/product/detail";
+        return "client/product/detail";
     }
 }

@@ -38,13 +38,13 @@ public class ProductController {
     public String getProductPage(Model model) {
         List<Product> products = this.productService.getAllProducts();
         model.addAttribute("products", products);
-        return "/admin/product/show";
+        return "admin/product/show";
     }
 
     @GetMapping("/admin/product/create")
     public String getCreateProductPage(Model model) {
         model.addAttribute("newProduct", new Product());
-        return "/admin/product/create";
+        return "admin/product/create";
     }
 
     @PostMapping("/admin/product/create")
@@ -60,7 +60,7 @@ public class ProductController {
         if (newUserBindingResult.hasErrors()) {
             // không dùng redirect vì khi submit có lỗi nó sẽ tự reset và mất hết input vừa
             // nhập
-            return "/admin/product/create";
+            return "admin/product/create";
         }
         String productImageFile = this.uploadService.handleSaveUploadFile(file, "product");
         newProduct.setImage(productImageFile);
@@ -100,7 +100,7 @@ public class ProductController {
         if (newUserBindingResult.hasErrors()) {
             // không dùng redirect vì khi submit có lỗi nó sẽ tự reset và mất hết input vừa
             // nhập
-            return "/admin/product/update";
+            return "admin/product/update";
         }
         String productImageFile = this.uploadService.handleSaveUploadFile(file, "product");
         Product currentProduct = this.productService.getProductByID(updateProduct.getId());
@@ -138,7 +138,7 @@ public class ProductController {
     public String getDeleteUserPage(Model model, @PathVariable long id) {
         Product currentProduct = this.productService.getProductByID(id);
         model.addAttribute("currentProduct", currentProduct);
-        return "/admin/product/delete";
+        return "admin/product/delete";
     }
 
     @PostMapping("admin/product/delete")

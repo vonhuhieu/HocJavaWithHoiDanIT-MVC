@@ -40,8 +40,6 @@ public class UserController {
 
     @RequestMapping("/")
     public String getHomePage(Model model) {
-        List<User> arrUsers = this.userService.getAllUsersByEmail("1@gmai.com");
-        System.out.println(arrUsers);
         String test = this.userService.handleHello();
         model.addAttribute("eric", "test");
         model.addAttribute("hoidanit", "from controller with model");
@@ -52,7 +50,7 @@ public class UserController {
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("users1", users);
-        return "/admin/user/show";
+        return "admin/user/show";
     }
 
     @RequestMapping("/admin/user/{id}")
@@ -60,13 +58,13 @@ public class UserController {
         model.addAttribute("id", id);
         User user = this.userService.getUserByID(id);
         model.addAttribute("user", user);
-        return "/admin/user/detail";
+        return "admin/user/detail";
     }
 
     @GetMapping("/admin/user/create") // GET
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
-        return "/admin/user/create";
+        return "admin/user/create";
     }
 
     @PostMapping(value = "/admin/user/create")
@@ -82,7 +80,7 @@ public class UserController {
         if (newUserBindingResult.hasErrors()) {
             // không dùng redirect vì khi submit có lỗi nó sẽ tự reset và mất hết input vừa
             // nhập
-            return "/admin/user/create";
+            return "admin/user/create";
         }
         String hashPassword = this.passwordEncoder.encode(hoidanit.getPassword());
         String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
@@ -98,7 +96,7 @@ public class UserController {
         User currentUser = this.userService.getUserByID(id);
         model.addAttribute("id", id);
         model.addAttribute("newUser", currentUser);
-        return "/admin/user/update";
+        return "admin/user/update";
     }
 
     @PostMapping("admin/user/update/{id}")
@@ -115,7 +113,7 @@ public class UserController {
         if (newUserBindingResult.hasErrors()) {
             // không dùng redirect vì khi submit có lỗi nó sẽ tự reset và mất hết input vừa
             // nhập
-            return "/admin/user/update";
+            return "admin/user/update";
         }
         String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
         User currentUser = this.userService.getUserByID(hoidanit.getId());
@@ -150,7 +148,7 @@ public class UserController {
     public String getDeleteUserPage(Model model, @PathVariable long id) {
         User currentUser = this.userService.getUserByID(id);
         model.addAttribute("currentUser", currentUser);
-        return "/admin/user/delete";
+        return "admin/user/delete";
     }
 
     @PostMapping("admin/user/delete")
