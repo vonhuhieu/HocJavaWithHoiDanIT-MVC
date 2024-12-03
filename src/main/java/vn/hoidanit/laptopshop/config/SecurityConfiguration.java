@@ -74,8 +74,9 @@ public class SecurityConfiguration {
                 .sessionManagement((sessionManagement) -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                         .invalidSessionUrl("/logout?expired")
-                        .maximumSessions(1)
-                        .maxSessionsPreventsLogin(false))
+                        .maximumSessions(1) // giới hạn session, một tài khoản không thể đăng nhập cùng lúc ở nhiều
+                                            // thiết bị
+                        .maxSessionsPreventsLogin(false)) // cùng một tài khoản, người sau vào sẽ đá người khác ra
 
                 .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
 
