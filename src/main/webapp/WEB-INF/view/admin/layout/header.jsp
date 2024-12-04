@@ -23,7 +23,7 @@
                             data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#!">
-                                    <c:out value="${pageContext.request.userPrincipal.name}" />
+                                    <c:out value="${sessionScope.email}" />
                                 </a></li>
                             <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                             <li>
